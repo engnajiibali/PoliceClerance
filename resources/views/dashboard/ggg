@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Police Clearance Certificate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            padding: 20px;
+        }
+        
+        .certificate-container {
+            width: 800px;
+            background-color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #2c3e50;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #1a2a3a, #2c3e50);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #d4af37;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 0 L60 40 L100 50 L60 60 L50 100 L40 60 L0 50 L40 40 Z" fill="%23d4af37"/></svg>') no-repeat center center;
+            background-size: contain;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .certificate-body {
+            border: 3px double #2c3e50;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .official-seal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 120px;
+            height: 120px;
+            border: 2px solid #d4af37;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #fff 60%, #f5f5f5 90%);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .seal-inner {
+            text-align: center;
+            font-size: 12px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        
+        .seal-inner::before {
+            content: "OFFICIAL SEAL";
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            text-decoration: underline;
+        }
+        
+        .photo-section {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        
+        .photo-placeholder {
+            width: 150px;
+            height: 180px;
+            background: linear-gradient(45deg, #e6e6e6, #f9f9f9);
+            border: 1px solid #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px;
+            position: relative;
+        }
+        
+        .photo-placeholder::after {
+            content: "PASSPORT PHOTO";
+            position: absolute;
+            bottom: 5px;
+            font-size: 10px;
+            color: #777;
+        }
+        
+        .photo-stamp {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color: #d4af37;
+            font-size: 10px;
+            font-weight: bold;
+            transform: rotate(-15deg);
+            opacity: 0.8;
+        }
+        
+        .personal-info {
+            flex: 1;
+        }
+        
+        .info-row {
+            display: flex;
+            margin-bottom: 12px;
+            border-bottom: 1px dotted #eee;
+            padding-bottom: 5px;
+        }
+        
+        .info-label {
+            width: 180px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .info-value {
+            flex: 1;
+            color: #333;
+        }
+        
+        .result-section {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(to right, #f9f9f9, #fff, #f9f9f9);
+            border-top: 2px solid #2c3e50;
+            border-bottom: 2px solid #2c3e50;
+        }
+        
+        .result-text {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .clear-status {
+            font-size: 26px;
+            color: #2e8b57;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        
+        .validity {
+            text-align: center;
+            margin: 20px 0;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .signature-area {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        
+        .signature {
+            text-align: center;
+            width: 250px;
+        }
+        
+        .sign-line {
+            width: 200px;
+            border-top: 1px solid #000;
+            margin: 5px auto;
+            padding-top: 25px;
+        }
+        
+        .footer {
+            background: linear-gradient(to right, #1a2a3a, #2c3e50);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-top: 5px solid #d4af37;
+            font-size: 12px;
+        }
+        
+        .footer-logo {
+            margin-top: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #d4af37;
+        }
+        
+        .watermark {
+            position: absolute;
+            opacity: 0.03;
+            font-size: 180px;
+            font-weight: bold;
+            color: #000;
+            transform: rotate(-45deg);
+            top: 30%;
+            left: 10%;
+            z-index: -1;
+            white-space: nowrap;
+        }
+        
+        .ribbon {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            background: #d4af37;
+            color: #2c3e50;
+            padding: 5px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            transform: rotate(-45deg);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate-container">
+        <div class="ribbon">OFFICIAL DOCUMENT</div>
+        <div class="watermark">POLICE CLEARANCE</div>
+        
+        <div class="header">
+            <h1>REPUBLIC OF EXAMPLELAND</h1>
+            <p>NATIONAL POLICE AGENCY - CRIMINAL RECORDS DIVISION</p>
+        </div>
+        
+        <div class="content">
+            <div class="certificate-body">
+                <div class="official-seal">
+                    <div class="seal-inner">
+                        NATIONAL POLICE<br>
+                        EXAMPLELAND<br>
+                        2023
+                    </div>
+                </div>
+                
+                <div class="photo-section">
+                    <div class="photo-placeholder">
+                        Photograph
+                        <div class="photo-stamp">OFFICIAL STAMP</div>
+                    </div>
+                    
+                    <div class="personal-info">
+                        <div class="info-row">
+                            <div class="info-label">Certificate Number:</div>
+                            <div class="info-value">PCC-EL-2023-987654</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Full Name:</div>
+                            <div class="info-value">Jane Alexandra Doe</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Date of Birth:</div>
+                            <div class="info-value">15-AUG-1985</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Place of Birth:</div>
+                            <div class="info-value">Springfield, Exampleland</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Nationality:</div>
+                            <div class="info-value">Examplelandish</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Passport No.:</div>
+                            <div class="info-value">EL1234567</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Purpose of Issue:</div>
+                            <div class="info-value">UAE Employment Visa</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-section">
+                    <div class="result-text">CRIMINAL RECORD CHECK RESULT</div>
+                    <div class="clear-status">No Criminal Record Found</div>
+                </div>
+                
+                <div class="validity">
+                    This certificate is valid for 6 months from the date of issue.
+                </div>
+                
+                <div class="signature-area">
+                    <div class="signature">
+                        <div class="sign-line"></div>
+                        <div>Authorized Signatory</div>
+                        <div>Officer James Smith, Inspector</div>
+                        <div>Criminal Records Office</div>
+                    </div>
+                    
+                    <div class="signature">
+                        <div>Date of Issue: 26-OCT-2023</div>
+                        <div class="sign-line"></div>
+                        <div>Director General</div>
+                        <div>National Police Agency</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>National Police Agency - Exampleland | www.police.example.gov.el | verification@police.example.gov.el</p>
+            <div class="footer-logo">OFFICIAL POLICE CLEARANCE CERTIFICATE</div>
+        </div>
+    </div>
+</body>
+</html>
