@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Region;
+use App\Models\State;
+
 use Illuminate\Http\Request;
 
 class RegionController extends Controller
@@ -10,8 +12,9 @@ class RegionController extends Controller
     public function index()
     {
         $regions = Region::all();
+    $states = State::all(); // For dropdown
         $pageTitle = "Region Management";
-        return view('regions.index', compact('regions','pageTitle'));
+        return view('regions.index', compact('regions','pageTitle','states'));
     }
 
     public function create()
@@ -24,6 +27,9 @@ class RegionController extends Controller
         $request->validate([
             'name' => 'required|string|max:100',
             'code' => 'nullable|string|max:20',
+            'lng' => 'nullable|string|max:20',
+            'lat' => 'nullable|string|max:20',
+            'state' => 'required|exists:states,id',
         ]);
 
         Region::create($request->all());

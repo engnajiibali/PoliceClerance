@@ -27,6 +27,8 @@ class DistrictController extends Controller
         $request->validate([
             'name' => 'required|string|max:100',
             'code' => 'nullable|string|max:20',
+            'lat' => 'nullable|string|max:20',
+            'lng' => 'nullable|string|max:20',
             'region_id' => 'required|exists:regions,id',
         ]);
 

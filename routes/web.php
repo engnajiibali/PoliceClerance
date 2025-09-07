@@ -29,9 +29,9 @@ use App\Http\Controllers\FingerPrintController;
 use App\Http\Controllers\CrimeCategoryController;
 use App\Http\Controllers\CrimeTypeController;
 use App\Http\Controllers\CrimecaseController;
-
-
-
+use App\Http\Controllers\StateController;
+use App\Http\Controllers\SubBranchController;
+use App\Http\Controllers\BranchManagerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +78,7 @@ Route::get('certificates/{certificate}', [CertificateController::class,'show'])-
 Route::get('crimes', [CrimeController::class, 'index'])->name('crimes.index');
 Route::post('crimes/check/{application}', [CrimeController::class, 'check'])->name('crimes.check');
 Route::resource('regions', RegionController::class);
+Route::resource('States', StateController::class);
 Route::resource('districts', DistrictController::class);
 Route::resource('branches', BranchController::class);
 Route::resource('applicants', ApplicantController::class);
@@ -89,7 +90,8 @@ Route::resource('biometrics', BiometricController::class);
 Route::resource('payments', PaymentController::class);
 Route::put('pay/{payment}/pay', [PaymentController::class, 'pay'])->name('payments.pay');
 Route::get('paid', [PaymentController::class, 'paid'])->name('payments.paid');
-
+Route::resource('sub_branches', SubBranchController::class);
+Route::resource('branch_managers', BranchManagerController::class)->except(['edit', 'update', 'show']);
 Route::resource('departments', DepartmentsController::class);
 Route::resource('supdepartments', supDepartmentsController::class);
 

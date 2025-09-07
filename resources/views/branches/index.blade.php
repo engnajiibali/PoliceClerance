@@ -32,7 +32,18 @@
         @endif
     </div>
     <br>
-
+   <!-- Tabs -->
+    <ul class="nav nav-tabs nav-tabs-solid bg-transparent border-bottom mb-3">
+        <li class="nav-item">
+            <a class="nav-link active" href="{{ route('branches.index') }}"><i class="ti ti-settings me-2"></i>Branches</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('sub_branches.index') }}"><i class="ti ti-device-ipad-horizontal-cog me-2"></i>Sub Branches</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('branch_managers.index') }}"><i class="ti ti-settings-2 me-2"></i>Branch Managers</a>
+        </li>
+    </ul>
     <div class="row">
         <!-- Branch List -->
         <div class="col-xxl-8 col-xl-8 d-flex">
@@ -96,7 +107,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Select District <strong class="text-danger">*</strong></label>
-                            <select class="form-control" name="district_id">
+                            <select class="form-control select2" name="district_id">
                                 <option value="">-- Select District --</option>
                                 @foreach($districts as $district)
                                     <option value="{{ $district->id }}">{{ $district->name }}</option>

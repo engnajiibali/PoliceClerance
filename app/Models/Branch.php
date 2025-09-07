@@ -15,4 +15,13 @@ class Branch extends Model
     {
         return $this->belongsTo(District::class);
     }
+     public function subBranches()
+    {
+        return $this->hasMany(SubBranch::class);
+    }
+
+    public function managers()
+    {
+        return $this->hasMany(BranchManager::class);
+    }
 }

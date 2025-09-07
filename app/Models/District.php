@@ -9,7 +9,7 @@ class District extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'code', 'region_id'];
+    protected $fillable = ['name', 'code', 'region_id', 'lng', 'lat'];
 
     public function region()
     {

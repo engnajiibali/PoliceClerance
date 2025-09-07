@@ -112,41 +112,62 @@ $pageTitle = "Add Employee";
 return view('persons.add', compact('pageTitle'));
 }
 
-/**
-* Store a newly created resource in storage.
-*/
 public function store(Request $request)
 {
-$validated = $request->validate([
-'fullName' => 'required|string|max:255',
-'email'    => 'nullable|email',
-'phone'    => 'nullable|string|max:20',
-'gender'   => 'required',
-]);
+    $request->validate([
+        'FullName' => 'required|string|max:255',
+        'Gender' => 'required|in:Male,Female',
+        'Email' => 'nullable|email|max:255',
+        'Phone' => 'nullable|string|max:20',
+        'status' => 'nullable|in:0,1',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+        'captured_image' => 'nullable|string',
+        'createdby' => 'nullable|string|max:255',
+        'Mothername' => 'nullable|string|max:255',
+        'DOB' => 'nullable|date',
+        'POB' => 'nullable|string|max:255',
+        'Naitonality' => 'nullable|string|max:255',
+        'address' => 'nullable|string',
+        'Notes' => 'nullable|string',
+    ]);
 
-// Handle profile image upload
-if ($request->hasFile('personImd')) {
-$fileName = time() . '_img_' . $request->personImd->getClientOriginalName();
-$request->personImd->move(public_path('upload/personImg'), $fileName);
-} else {
-$fileName = 'userimg.png'; // Default image
+    $person = new persons();
+
+    $person->FullName = $request->FullName;
+    $person->Gender = $request->Gender;
+    $person->Email = $request->Email;
+    $person->Phone = $request->Phone;
+    $person->status = $request->status ?? 1;
+    $person->createdby = $request->createdby;
+    $person->Mothername = $request->Mothername;
+    $person->DOB = $request->DOB;
+    $person->POB = $request->POB;
+    $person->Naitonality = $request->Naitonality;
+    $person->address = $request->address;
+    $person->Notes = $request->Notes;
+
+    // Handle uploaded file
+    if ($request->hasFile('image')) {
+        $file = $request->file('image');
+        $filename = time().'_'.$file->getClientOriginalName();
+        $file->move(public_path('upload/persons'), $filename);
+        $person->image = $filename;
+    } 
+    // Handle webcam snapshot
+    elseif ($request->captured_image) {
+        $image = $request->captured_image;
+        $image = str_replace('data:image/png;base64,', '', $image);
+        $image = str_replace(' ', '+', $image);
+        $imageName = time().'.png';
+        file_put_contents(public_path('upload/persons/'.$imageName), base64_decode($image));
+        $person->image = $imageName;
+    }
+
+    $person->save();
+
+    return redirect()->route('persons.index')->with('success', 'Person added successfully!');
 }
 
-// Create new person
-$person = new persons();
-$person->FullName   = $request->fullName;
-$person->Email      = $request->email;
-$person->Phone      = $request->phone;
-$person->Gender     = $request->gender;
-$person->image      = $fileName;
-$person->createdby  = session()->get('userId');
-
-if ($person->save()) {
-return redirect('persons')->with('success', 'Person successfully registered.');
-} else {
-return back()->with('fail', 'Something went wrong.');
-}
-}
 
 
 /**
